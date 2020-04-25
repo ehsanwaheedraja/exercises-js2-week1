@@ -32,33 +32,60 @@ var products = [];
 var product1 = {
   id: 1,
   name: "Toaster X56 Plus",
-  price: 12.98,
-  stock: 105
+  price: 12,
+  stock: 105,
 };
-var product1 = {
+var product2 = {
   id: 2,
   name: "Watch Rocker",
-  price: 9.99,
-  stock: 2
+  price: 9,
+  stock: 2,
+};
+var product3 = {
+  id: 3,
+  name: "table",
+  price: 4,
+  stock: 5,
+};
+var product4 = {
+  id: 4,
+  name: "chair",
+  price: 8,
+  stock: 1,
 };
 
 products.push(product1);
+products.push(product2);
+products.push(product3);
+products.push(product4);
 
+//3. Create a function addToShoppingCart to add a product to the shopping cart list giving the product id,
+// the function will add the product to the selectedProduct list, and add the price to the totalPrice
 var shoppingCart = {
   totalPrice: 0,
-  selectedProducts = []
+  selectedProducts: [],
 };
 
-function addToShoppingCart(id){
-
+function addToShoppingCart(id) {
+  shoppingCart.selectedProducts.push(products.filter((x) => x.id === id));
+  let arrToNumber = products.filter((x) => x.id === id).map((x) => x.price);
+  shoppingCart.totalPrice += arrToNumber[0];
 }
-
-function removeFromShoppingCart(id){
-
+//4. Create the function removeFrom ShoppingCart to remove a product that a client does not like anymore
+function removeFromShoppingCart(id) {
+  shoppingCart.selectedProducts.pop(products.filter((x) => x.id === id));
+  let arrToNumber = products.filter((x) => x.id === id).map((x) => x.price);
+  shoppingCart.totalPrice -= arrToNumber[0];
 }
+//5. Create the function shop, the function will empty the list and set 0 in the totalPrice of the shopping cart
+//In addition will substract 1 in the product stock of bought products
+function shop() {
+  products
+    .filter((x) => x.name === shoppingCart.selectedProducts[0][0].name)
+    .map((x) => (x.stock -= 1));
 
-function shop(){
-
+  shoppingCart.totalPrice = 0;
+  shoppingCart.selectedProducts = [];
 }
 
 //results
@@ -66,24 +93,35 @@ addToShoppingCart(1);
 console.log("Step 1");
 console.log("Total Price = " + shoppingCart.totalPrice);
 console.log("Number of Elements = " + shoppingCart.selectedProducts.length);
-console.log("Name of Elements = " + shoppingCart.selectedProducts.map(p=>p.name));
+console.log(
+  "Name of Elements = " + shoppingCart.selectedProducts.map((p) => p[0].name)
+);
 addToShoppingCart(2);
 console.log("Step 2");
 console.log("Total Price = " + shoppingCart.totalPrice);
 console.log("Number of Elements = " + shoppingCart.selectedProducts.length);
-console.log("Name of Elements = " + shoppingCart.selectedProducts.map(p=>p.name));
+console.log(
+  "Name of Elements = " + shoppingCart.selectedProducts.map((p) => p[0].name)
+);
 addToShoppingCart(4);
 console.log("Step 3");
 console.log("Total Price = " + shoppingCart.totalPrice);
 console.log("Number of Elements = " + shoppingCart.selectedProducts.length);
-console.log("Name of Elements = " + shoppingCart.selectedProducts.map(p=>p.name));
+console.log(
+  "Name of Elements = " + shoppingCart.selectedProducts.map((p) => p[0].name)
+);
 removeFromShoppingCart(2);
 console.log("Step 4");
 console.log("Total Price = " + shoppingCart.totalPrice);
 console.log("Number of Elements = " + shoppingCart.selectedProducts.length);
-console.log("Name of Elements = " + shoppingCart.selectedProducts.map(p=>p.name));
+console.log(
+  "Name of Elements = " + shoppingCart.selectedProducts.map((p) => p[0].name)
+);
 shop();
 console.log("Step 5");
 console.log("Total Price = " + shoppingCart.totalPrice);
 console.log("Number of Elements = " + shoppingCart.selectedProducts.length);
-console.log("Name of Elements = " + shoppingCart.selectedProducts.map(p=>p.name));
+console.log(
+  "Name of Elements = " + shoppingCart.selectedProducts.map((p) => p[0].name)
+);
+console.log("stock left:" + products.map((x) => x.stock));
