@@ -125,3 +125,6 @@ console.log(
   "Name of Elements = " + shoppingCart.selectedProducts.map((p) => p[0].name)
 );
 console.log("stock left:" + products.map((x) => x.stock));
+
+// i have a problem while solving last part. unable to subtract from stocks properly . every time i run .map()
+//it enclose my array into another array that's why i used [0] repeatdly.
